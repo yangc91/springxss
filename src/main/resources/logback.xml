@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!--日志文件的名称，根据系统自动追加日期和后缀-->
+	<property name="LOG_FILE_NAME" value="springxss"/>
+	<!-- 控制台输出，开发调试可以在下文root中添加项-->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date{yy-MM-dd HH:mm:ss} %-5level %logger{50} - %msg%n</pattern>
+		</layout>
+	</appender>
+	<!-- 每天生成一个日志文件 -->   
+	<appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件路径和文件名，不要修改-->
+            <FileNamePattern>/home/logs/${LOG_FILE_NAME}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--日志文件保留天数，默认30天-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"> 
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+            <pattern>%d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>   
+        </encoder>
+	</appender>
+	
+	<logger name="org.apache.shiro" level="ERROR" />
+	<logger name="org.springframework" level="ERROR"/>
+	<logger name="org.directwebremoting" level="ERROR"/>
+	<logger name="org.apache" level="ERROR"/>
+	<logger name="com.yc" level="DEBUG"/>
+
+	<root level="DEBUG">
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="logfile"/>
+	</root>
+</configuration>

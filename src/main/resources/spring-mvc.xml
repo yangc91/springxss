@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+  <!-- xss 的xml配置，与java config模式任选一种即可 -->
+
+  <!-- xml包扫描过滤了config的包 -->
+  <context:component-scan base-package="com.yc.learn.factory, com.yc.learn.jackson" />
+
+  <mvc:annotation-driven>
+    <mvc:message-converters register-defaults="true">
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <constructor-arg ref="ObjectMapper"></constructor-arg>
+      </bean>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
+
+  <!-- 使用工厂模式 -->
+  <bean id="ObjectMapper" class="com.yc.learn.factory.ObjectMapperFactory"
+      factory-method="getMapper"/>
+</beans>
