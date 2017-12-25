@@ -40,13 +40,14 @@
 
   <!-- 使用注解代替默认的XmlWebApplicationContext生成root context -->
   <!-- 进入@Configuration注解的类中定义bean-->
+  <!--
   <context-param>
     <param-name>contextClass</param-name>
     <param-value>
       org.springframework.web.context.support.AnnotationConfigWebApplicationContext
     </param-value>
   </context-param>
-
+  -->
   <!-- 指向@Configuration注解的类的全称或包路径,或配置文件路径 -->
   <!--<context-param>-->
   <!--<param-name>contextConfigLocation</param-name>-->
